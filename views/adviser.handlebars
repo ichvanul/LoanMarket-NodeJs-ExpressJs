@@ -1,0 +1,154 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Loan Market</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/branch">Branch</a>
+      <a class="nav-item nav-link" href="/adviser">Loan Adviser</a>
+    </div>
+  </div>
+</nav>
+
+<div class="row mt-5">
+    <div class="col-md-10">
+        <p class="h3 mx-5">Data Loan Adviser</p>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-primary newCourseBtn" data-toggle="modal" data-target="#AddModal"
+            style="float: right;">
+            Tambah
+        </button>
+    </div>
+</div>
+
+<table class="table table-hover table-striped" id="mytable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nama Loan Adviser</th>
+            <th scope="col">Deskripsi</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        {{#each courses}}
+        <tr>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.courseName}}</td>
+            <td>{{this.interval}} Day</td>
+            <td>{{this.start}}</td>
+            <td>{{this.end}}</td>
+            <td>
+                <button type="button" class="btn btn-success editBtn" data-toggle="modal" data-target="#EditModal"
+                    data-id="{{this.id}}" data-course_name="{{this.courseName}}" data-interval="{{this.interval}}"
+                    data-start="{{this.start}}" data-end="{{this.end}}">Edit</button>
+                <button type="button" class="btn btn-danger deleteBtn" data-toggle="modal" data-target="#DeleteModal"
+                    data-id="{{ this.id}}" data-name="{{ this.courseName}}">Hapus</button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!--Add Modal -->
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="Add Modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tambah Loan Adviser</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger addAlertError" role="alert" style="display: none;"></div>
+                <form class="addCourseForm">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="validationServer01">Nama Loan Adviser</label>
+                            <input type="text" class="form-control courseName" id="validationServer01"
+                                placeholder="Nama Branch" name="courseName" required>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="validationServer02">Deskripsi</label>
+                            <input type="text" class="form-control interval" id="validationServer02"
+                                placeholder="Alamat Branch" name="interval" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-primary btn-block" value="Simpan" id="addCourseBtn">
+                        <input type="button" class="btn btn-secondary  btn-block" data-dismiss="modal" value="Batalkan">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  Delete Modal-->
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Hapus<span class="courseNameVar"
+                        style="color: red;font-weight: bold;"></span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <form id="deleteForm">
+                <div class="modal-body">
+                    <input name="id" class="form-control idVar" hidden required>
+                    <strong>Apakah Anda yakin?</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batalkan</button>
+                    <button type="button" class="btn btn-danger" id="deleteCourseBtn">Hapus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="Add Modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit <span class="editCoureNameVar"
+                        style="color: #28a745;font-weight: bold;"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger editAlertError" role="alert" style="display: none;"></div>
+                <form class="editForm">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="validationServer00">Id</label>
+                            <input type="text" class="form-control id" id="validationServer00" placeholder="Course Id"
+                                name="id" required readonly>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="validationServer01">Nama Loan Adviser</label>
+                            <input type="text" class="form-control courseName" id="validationServer01"
+                                placeholder="Nama Loan Adviser" name="courseName" required>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="validationServer02">Deskripsi</label>
+                            <input type="text" class="form-control interval" id="validationServer02"
+                                placeholder="Deskripsi" name="interval" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-info btn-block" value="Update" id="editCourseBtn">
+                        <input type="button" class="btn btn-secondary  btn-block" data-dismiss="modal" value="Batalkan">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
